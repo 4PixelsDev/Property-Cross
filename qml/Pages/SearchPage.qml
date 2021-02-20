@@ -14,6 +14,7 @@ Page {
         IconButtonBarItem {
             icon: IconType.heart
             title: qsTr("Favorites")
+            onClicked: showListings(true)
         }
     }
 
@@ -34,12 +35,11 @@ Page {
         }
 
         AppText {
-//            id: hint
             width: parent.width
-            font: sp(12)
             color: Theme.secondaryTextColor
             font.italic: true
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+            font.pixelSize: sp(12)
             text: qsTr("Hint: You can quickly find something by typing a location.")
         }
 
@@ -58,6 +58,21 @@ Page {
 
         Row {
             spacing: contentPadding
+            AppButton {
+                text: qsTr("Go")
+                onClicked: searchLocation()
+            }
+
+            AppButton {
+                id: locationButton
+                text: qsTr("My location")
+                enabled: true
+                onClicked: {
+                    searchInput.text == ""
+                    searchInput.placeholderText = qsTr("Looking for location...")
+                    locationButton.enabled = false
+                }
+            }
         }
     }
 
@@ -68,5 +83,9 @@ Page {
 
     function searchLocation() {
         console.debug("Search triggered")
+    }
+
+    function showListings(isFavorites) {
+
     }
 }
