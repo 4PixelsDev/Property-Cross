@@ -26,6 +26,7 @@ Page {
         spacing: contentPadding
 
         AppText {
+            id: pageDescription
             width: parent.width
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             font.pixelSize: sp(12)
@@ -33,6 +34,7 @@ Page {
         }
 
         AppText {
+//            id: hint
             width: parent.width
             font: sp(12)
             color: Theme.secondaryTextColor
@@ -49,11 +51,22 @@ Page {
             borderWidth: 1
             borderColor: Theme.colors.secondaryBackgroundColor
             inputMethodHints: Qt.ImhNoPredictiveText
-
+            onTextChanged: showRecentSearches()
+            onEditingFinished: if (navigationStack.currentPage === searchPage)
+                                   searchLocation()
         }
 
         Row {
             spacing: contentPadding
         }
+    }
+
+    // Actions
+    function showRecentSearches() {
+        //console.debug("Showing recent searches")
+    }
+
+    function searchLocation() {
+        console.debug("Search triggered")
     }
 }
